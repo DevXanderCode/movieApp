@@ -1,13 +1,6 @@
 import * as React from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
-import axios from 'axios';
-
-const getPopularMovies = async () => {
-  const res = await axios.get(
-    'https://api.themoviedb.org/3/movie/popular?api_key=06e864e959ef3841f17579868f21a540',
-  );
-  return res.data.results;
-};
+import {getPopularMovies} from './services/services';
 
 const App = () => {
   const [movie, setMovie] = React.useState('');
