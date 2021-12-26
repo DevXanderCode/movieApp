@@ -1,0 +1,6 @@
+@Api_Key = 06e864e959ef3841f17579868f21a540
+@url = https://api.themoviedb.org/3
+
+#### get Popular movies
+
+GET {{url}}/movie/popular?api_key={{Api_Key}}
