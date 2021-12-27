@@ -28,50 +28,40 @@ const Home = () => {
   const [documentaryMovies, setDocumentaryMovies] = React.useState([]);
   const [error, setError] = React.useState(false);
 
+  const getData = () => {
+    return Promise.all([
+      getUpcommingMovies(),
+      getPopularMovies(),
+      getPopularTv(),
+      getFamilyMovies(),
+      getDocumentaryMovies(),
+    ]);
+  };
+
   React.useEffect(() => {
-    getUpcommingMovies()
-      .then(movies => {
-        const moviesImgArr = [];
-        movies.forEach(movie => {
-          moviesImgArr.push(
-            `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-          );
-        });
-        setMoviesImg(moviesImgArr);
-        setError(false);
-      })
-      .catch(err => {
-        setError(err);
-      });
-    getPopularMovies()
-      .then(movies => {
-        setPopularMovies(movies);
-        setError(false);
-      })
-      .catch(err => {
-        setError(err);
-      });
-    getPopularTv()
-      .then(movies => {
-        setPopularTv(movies);
-        setError(false);
-      })
-      .catch(err => {
-        setError(err);
-      });
-    getFamilyMovies()
-      .then(movies => {
-        setFamilyMovies(movies);
-        setError(false);
-      })
-      .catch(err => {
-        setError(err);
-      });
-    getDocumentaryMovies()
-      .then(movies => {
-        setDocumentaryMovies(movies);
-        setError(false);
-      })
+    getData()
+      .then(
+        ([
+          upcommingMovies,
+          popularMovies,
+          popularTv,
+          familyMovies,
+          documentaryMovies,
+        ]) => {
+          const moviesImgArr = [];
+          upcommingMovies.forEach(movie => {
+            moviesImgArr.push(
+              `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+            );
+          });
+          setMoviesImg(moviesImgArr);
+
+          setPopularTv(popularMovies);
+          setPopularTv(popularTv);
+          setFamilyMovies(familyMovies);
+          setDocumentaryMovies(documentaryMovies);
+        },
+      )
       .catch(err => {
         setError(err);
       });
@@ -79,31 +69,41 @@ const Home = () => {
   return (
     <SafeAreaView style={styles?.container}>
       <ScrollView>
-        <View style={styles?.sliderContainer}>
-          <SliderBox
-            images={moviesImg}
-            ImageComponent={FastImage}
-            sliderBoxHeight={height / 1.5}
-            autoplay={true}
-            circleLoop={true}
-            dotStyle={styles?.dotStyle}
-          />
-        </View>
-        <View style={styles?.carouselContainer}>
-          <List title="Popular Movies" content={popularMovies} />
-        </View>
-        <View style={styles?.carouselContainer}>
-          <List title="Popular Tv Shows" content={popularTv} />
-        </View>
-        <View style={styles?.carouselContainer}>
-          <List title="Popular Family Movies" content={familyMovies} />
-        </View>
-        <View style={styles?.carouselContainer}>
-          <List
-            title="Popular Documentary Movies"
-            content={documentaryMovies}
-          />
-        </View>
+        {moviesImg.length && (
+          <View style={styles?.sliderContainer}>
+            <SliderBox
+              images={moviesImg}
+              ImageComponent={FastImage}
+              sliderBoxHeight={height / 1.5}
+              autoplay={true}
+              circleLoop={true}
+              dotStyle={styles?.dotStyle}
+            />
+          </View>
+        )}
+        {popularMovies.length && (
+          <View style={styles?.carouselContainer}>
+            <List title="Popular Movies" content={popularMovies} />
+          </View>
+        )}
+        {popularTv.length && (
+          <View style={styles?.carouselContainer}>
+            <List title="Popular Tv Shows" content={popularTv} />
+          </View>
+        )}
+        {familyMovies.length && (
+          <View style={styles?.carouselContainer}>
+            <List title="Popular Family Movies" content={familyMovies} />
+          </View>
+        )}
+        {documentaryMovies.length && (
+          <View style={styles?.carouselContainer}>
+            <List
+              title="Popular Documentary Movies"
+              content={documentaryMovies}
+            />
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
