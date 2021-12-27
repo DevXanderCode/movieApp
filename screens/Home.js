@@ -14,6 +14,7 @@ import {
   getUpcommingMovies,
   getPopularTv,
   getFamilyMovies,
+  getDocumentaryMovies,
 } from '../services/services';
 import {List} from '../components';
 
@@ -24,6 +25,7 @@ const Home = () => {
   const [popularMovies, setPopularMovies] = React.useState([]);
   const [popularTv, setPopularTv] = React.useState([]);
   const [familyMovies, setFamilyMovies] = React.useState([]);
+  const [documentaryMovies, setDocumentaryMovies] = React.useState([]);
   const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
@@ -65,6 +67,14 @@ const Home = () => {
       .catch(err => {
         setError(err);
       });
+    getDocumentaryMovies()
+      .then(movies => {
+        setDocumentaryMovies(movies);
+        setError(false);
+      })
+      .catch(err => {
+        setError(err);
+      });
   }, []);
   return (
     <SafeAreaView style={styles?.container}>
@@ -87,6 +97,12 @@ const Home = () => {
         </View>
         <View style={styles?.carouselContainer}>
           <List title="Popular Family Movies" content={familyMovies} />
+        </View>
+        <View style={styles?.carouselContainer}>
+          <List
+            title="Popular Documentary Movies"
+            content={documentaryMovies}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
