@@ -1,12 +1,25 @@
 import * as React from 'react';
 import {Text, View, SafeAreaView} from 'react-native';
-import {getPopularMovies} from '../services/services';
+import {SliderBox} from 'react-native-image-slider-box';
+import {getPopularMovies, getUpcommingMovies} from '../services/services';
 
 const Home = () => {
+  const [moviesImg, setMoviesImg] = React.useState([]);
   const [movie, setMovie] = React.useState('');
   const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
+    getUpcommingMovies()
+      .then(movies => {
+        const moviesImgArr = [];
+        movies.forEach(movie => {
+          moviesImgArr.push(
+            `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+          );
+        });
+        setMoviesImg(moviesImgArr);
+      })
+      .catch();
     getPopularMovies()
       .then(movie => {
         setMovie(movie[0]);
@@ -18,16 +31,7 @@ const Home = () => {
   }, []);
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>Movie Name: {movie.original_title}</Text>
-        <Text>Language: {movie.original_language}</Text>
-        <Text>Release Date: {movie.release_date}</Text>
-        {error && (
-          <Text style={{color: 'red'}}>
-            errors in the server: {error.message}
-          </Text>
-        )}
-      </View>
+      <SliderBox images={moviesImg} />
     </SafeAreaView>
   );
 };
