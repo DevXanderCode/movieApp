@@ -1,8 +1,13 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import PropTypes from 'prop-types';
 
 const placeholderImg = require('../assets/images/image-placeholder.png');
+
+const propTypes = {
+  item: PropTypes?.object,
+};
 
 class Card extends React.PureComponent {
   render() {
@@ -45,5 +50,7 @@ const styles = StyleSheet.create({
     top: 10,
   },
 });
+
+Card.propTypes = propTypes;
 
 export default Card;
