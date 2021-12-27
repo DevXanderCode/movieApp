@@ -17,7 +17,7 @@ import {
   getFamilyMovies,
   getDocumentaryMovies,
 } from '../services/services';
-import {List} from '../components';
+import {List, Error} from '../components';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -28,6 +28,7 @@ const Home = () => {
   const [familyMovies, setFamilyMovies] = React.useState([]);
   const [documentaryMovies, setDocumentaryMovies] = React.useState([]);
   const [error, setError] = React.useState(false);
+  const [showError, setShowError] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
 
   const getData = () => {
@@ -62,9 +63,11 @@ const Home = () => {
           setPopularTv(popularTv);
           setFamilyMovies(familyMovies);
           setDocumentaryMovies(documentaryMovies);
+          setShowError(false);
         },
       )
       .catch(err => {
+        setShowError(true);
         setError(err);
       })
       .finally(() => {
@@ -74,51 +77,54 @@ const Home = () => {
   return (
     <SafeAreaView style={styles?.container}>
       {loaded ? (
-        <ScrollView>
-          {/* Upcomming movies slider box */}
-          {moviesImg.length > 0 && (
-            <View style={styles?.sliderContainer}>
-              <SliderBox
-                images={moviesImg}
-                ImageComponent={FastImage}
-                sliderBoxHeight={height / 1.5}
-                autoplay={true}
-                circleLoop={true}
-                dotStyle={styles?.dotStyle}
-              />
-            </View>
-          )}
-          {/* Popular movies Carousel */}
-          {popularMovies.length > 0 && (
-            <View style={styles?.carouselContainer}>
-              <List title="Popular Movies" content={popularMovies} />
-            </View>
-          )}
-          {/* Popular Tv Shows Carousel */}
-          {popularTv.length > 0 && (
-            <View style={styles?.carouselContainer}>
-              <List title="Popular Tv Shows" content={popularTv} />
-            </View>
-          )}
-          {/* Family Shows Carousel */}
-          {familyMovies.length > 0 && (
-            <View style={styles?.carouselContainer}>
-              <List title="Popular Family Movies" content={familyMovies} />
-            </View>
-          )}
-          {/* Documentary Movies */}
-          {documentaryMovies.length > 0 && (
-            <View style={styles?.carouselContainer}>
-              <List
-                title="Popular Documentary Movies"
-                content={documentaryMovies}
-              />
-            </View>
-          )}
-        </ScrollView>
+        !showError && (
+          <ScrollView>
+            {/* Upcomming movies slider box */}
+            {moviesImg.length > 0 && (
+              <View style={styles?.sliderContainer}>
+                <SliderBox
+                  images={moviesImg}
+                  ImageComponent={FastImage}
+                  sliderBoxHeight={height / 1.5}
+                  autoplay={true}
+                  circleLoop={true}
+                  dotStyle={styles?.dotStyle}
+                />
+              </View>
+            )}
+            {/* Popular movies Carousel */}
+            {popularMovies.length > 0 && (
+              <View style={styles?.carouselContainer}>
+                <List title="Popular Movies" content={popularMovies} />
+              </View>
+            )}
+            {/* Popular Tv Shows Carousel */}
+            {popularTv.length > 0 && (
+              <View style={styles?.carouselContainer}>
+                <List title="Popular Tv Shows" content={popularTv} />
+              </View>
+            )}
+            {/* Family Shows Carousel */}
+            {familyMovies.length > 0 && (
+              <View style={styles?.carouselContainer}>
+                <List title="Popular Family Movies" content={familyMovies} />
+              </View>
+            )}
+            {/* Documentary Movies */}
+            {documentaryMovies.length > 0 && (
+              <View style={styles?.carouselContainer}>
+                <List
+                  title="Popular Documentary Movies"
+                  content={documentaryMovies}
+                />
+              </View>
+            )}
+          </ScrollView>
+        )
       ) : (
         <ActivityIndicator size="large" />
       )}
+      {showError && <Error />}
     </SafeAreaView>
   );
 };
