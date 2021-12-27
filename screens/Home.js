@@ -54,7 +54,7 @@ const Home = () => {
         />
       </View>
       <View style={styles?.carouselContainer}>
-        <List title="Testing title" content={popularMovies} />
+        <List title="Popular Movies" content={popularMovies} />
       </View>
     </SafeAreaView>
   );
