@@ -1,7 +1,10 @@
 import * as React from 'react';
-import {Text, View, SafeAreaView} from 'react-native';
+import {Text, View, SafeAreaView, StyleSheet, Dimensions} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {SliderBox} from 'react-native-image-slider-box';
 import {getPopularMovies, getUpcommingMovies} from '../services/services';
+
+const {width, height} = Dimensions.get('screen');
 
 const Home = () => {
   const [moviesImg, setMoviesImg] = React.useState([]);
@@ -30,10 +33,27 @@ const Home = () => {
       });
   }, []);
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <SliderBox images={moviesImg} />
+    <SafeAreaView style={styles?.sliderContainer}>
+      <SliderBox
+        images={moviesImg}
+        ImageComponent={FastImage}
+        sliderBoxHeight={height / 1.5}
+        autoplay={true}
+        circleLoop={true}
+        dotStyle={styles?.dotStyle}
+      />
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  sliderContainer: {
+    flex: 1,
+  },
+  dotStyle: {
+    height: 0,
+    width: 0,
+  },
+});
 
 export default Home;
