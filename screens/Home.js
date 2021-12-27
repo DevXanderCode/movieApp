@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SliderBox} from 'react-native-image-slider-box';
@@ -27,6 +28,7 @@ const Home = () => {
   const [familyMovies, setFamilyMovies] = React.useState([]);
   const [documentaryMovies, setDocumentaryMovies] = React.useState([]);
   const [error, setError] = React.useState(false);
+  const [loaded, setLoaded] = React.useState(false);
 
   const getData = () => {
     return Promise.all([
@@ -64,52 +66,59 @@ const Home = () => {
       )
       .catch(err => {
         setError(err);
+      })
+      .finally(() => {
+        setLoaded(true);
       });
   }, []);
   return (
     <SafeAreaView style={styles?.container}>
-      <ScrollView>
-        {/* Upcomming movies slider box */}
-        {moviesImg.length > 0 && (
-          <View style={styles?.sliderContainer}>
-            <SliderBox
-              images={moviesImg}
-              ImageComponent={FastImage}
-              sliderBoxHeight={height / 1.5}
-              autoplay={true}
-              circleLoop={true}
-              dotStyle={styles?.dotStyle}
-            />
-          </View>
-        )}
-        {/* Popular movies Carousel */}
-        {popularMovies.length > 0 && (
-          <View style={styles?.carouselContainer}>
-            <List title="Popular Movies" content={popularMovies} />
-          </View>
-        )}
-        {/* Popular Tv Shows Carousel */}
-        {popularTv.length > 0 && (
-          <View style={styles?.carouselContainer}>
-            <List title="Popular Tv Shows" content={popularTv} />
-          </View>
-        )}
-        {/* Family Shows Carousel */}
-        {familyMovies.length > 0 && (
-          <View style={styles?.carouselContainer}>
-            <List title="Popular Family Movies" content={familyMovies} />
-          </View>
-        )}
-        {/* Documentary Movies */}
-        {documentaryMovies.length > 0 && (
-          <View style={styles?.carouselContainer}>
-            <List
-              title="Popular Documentary Movies"
-              content={documentaryMovies}
-            />
-          </View>
-        )}
-      </ScrollView>
+      {loaded ? (
+        <ScrollView>
+          {/* Upcomming movies slider box */}
+          {moviesImg.length > 0 && (
+            <View style={styles?.sliderContainer}>
+              <SliderBox
+                images={moviesImg}
+                ImageComponent={FastImage}
+                sliderBoxHeight={height / 1.5}
+                autoplay={true}
+                circleLoop={true}
+                dotStyle={styles?.dotStyle}
+              />
+            </View>
+          )}
+          {/* Popular movies Carousel */}
+          {popularMovies.length > 0 && (
+            <View style={styles?.carouselContainer}>
+              <List title="Popular Movies" content={popularMovies} />
+            </View>
+          )}
+          {/* Popular Tv Shows Carousel */}
+          {popularTv.length > 0 && (
+            <View style={styles?.carouselContainer}>
+              <List title="Popular Tv Shows" content={popularTv} />
+            </View>
+          )}
+          {/* Family Shows Carousel */}
+          {familyMovies.length > 0 && (
+            <View style={styles?.carouselContainer}>
+              <List title="Popular Family Movies" content={familyMovies} />
+            </View>
+          )}
+          {/* Documentary Movies */}
+          {documentaryMovies.length > 0 && (
+            <View style={styles?.carouselContainer}>
+              <List
+                title="Popular Documentary Movies"
+                content={documentaryMovies}
+              />
+            </View>
+          )}
+        </ScrollView>
+      ) : (
+        <ActivityIndicator size="large" />
+      )}
     </SafeAreaView>
   );
 };
@@ -117,6 +126,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
   },
   sliderContainer: {
     flex: 1,
