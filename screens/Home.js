@@ -5,11 +5,15 @@ import {
   SafeAreaView,
   StyleSheet,
   Dimensions,
-  FlatList,
+  ScrollView,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SliderBox} from 'react-native-image-slider-box';
-import {getPopularMovies, getUpcommingMovies} from '../services/services';
+import {
+  getPopularMovies,
+  getUpcommingMovies,
+  getPopularTv,
+} from '../services/services';
 import {List} from '../components';
 
 const {width, height} = Dimensions.get('screen');
@@ -17,6 +21,7 @@ const {width, height} = Dimensions.get('screen');
 const Home = () => {
   const [moviesImg, setMoviesImg] = React.useState([]);
   const [popularMovies, setPopularMovies] = React.useState([]);
+  const [popularTv, setPopularTv] = React.useState([]);
   const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
@@ -29,12 +34,22 @@ const Home = () => {
           );
         });
         setMoviesImg(moviesImgArr);
+        setError(false);
       })
-      .catch();
+      .catch(err => {
+        setError(err);
+      });
     getPopularMovies()
       .then(movies => {
         setPopularMovies(movies);
-        // console.log('Logging popular movies', movies);
+        setError(false);
+      })
+      .catch(err => {
+        setError(err);
+      });
+    getPopularTv()
+      .then(movies => {
+        setPopularTv(movies);
         setError(false);
       })
       .catch(err => {
@@ -43,19 +58,24 @@ const Home = () => {
   }, []);
   return (
     <SafeAreaView style={styles?.container}>
-      <View style={styles?.sliderContainer}>
-        <SliderBox
-          images={moviesImg}
-          ImageComponent={FastImage}
-          sliderBoxHeight={height / 1.5}
-          autoplay={true}
-          circleLoop={true}
-          dotStyle={styles?.dotStyle}
-        />
-      </View>
-      <View style={styles?.carouselContainer}>
-        <List title="Popular Movies" content={popularMovies} />
-      </View>
+      <ScrollView>
+        <View style={styles?.sliderContainer}>
+          <SliderBox
+            images={moviesImg}
+            ImageComponent={FastImage}
+            sliderBoxHeight={height / 1.5}
+            autoplay={true}
+            circleLoop={true}
+            dotStyle={styles?.dotStyle}
+          />
+        </View>
+        <View style={styles?.carouselContainer}>
+          <List title="Popular Movies" content={popularMovies} />
+        </View>
+        <View style={styles?.carouselContainer}>
+          <List title="Popular Tv Shows" content={popularTv} />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
