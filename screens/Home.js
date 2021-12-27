@@ -56,7 +56,7 @@ const Home = () => {
           });
           setMoviesImg(moviesImgArr);
 
-          setPopularTv(popularMovies);
+          setPopularMovies(popularMovies);
           setPopularTv(popularTv);
           setFamilyMovies(familyMovies);
           setDocumentaryMovies(documentaryMovies);
@@ -69,7 +69,8 @@ const Home = () => {
   return (
     <SafeAreaView style={styles?.container}>
       <ScrollView>
-        {moviesImg.length && (
+        {/* Upcomming movies slider box */}
+        {moviesImg.length > 0 && (
           <View style={styles?.sliderContainer}>
             <SliderBox
               images={moviesImg}
@@ -81,22 +82,26 @@ const Home = () => {
             />
           </View>
         )}
-        {popularMovies.length && (
+        {/* Popular movies Carousel */}
+        {popularMovies.length > 0 && (
           <View style={styles?.carouselContainer}>
             <List title="Popular Movies" content={popularMovies} />
           </View>
         )}
-        {popularTv.length && (
+        {/* Popular Tv Shows Carousel */}
+        {popularTv.length > 0 && (
           <View style={styles?.carouselContainer}>
             <List title="Popular Tv Shows" content={popularTv} />
           </View>
         )}
-        {familyMovies.length && (
+        {/* Family Shows Carousel */}
+        {familyMovies.length > 0 && (
           <View style={styles?.carouselContainer}>
             <List title="Popular Family Movies" content={familyMovies} />
           </View>
         )}
-        {documentaryMovies.length && (
+        {/* Documentary Movies */}
+        {documentaryMovies.length > 0 && (
           <View style={styles?.carouselContainer}>
             <List
               title="Popular Documentary Movies"
