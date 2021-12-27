@@ -1,14 +1,22 @@
 import * as React from 'react';
-import {Text, View, SafeAreaView, StyleSheet, Dimensions} from 'react-native';
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SliderBox} from 'react-native-image-slider-box';
 import {getPopularMovies, getUpcommingMovies} from '../services/services';
+import {List} from '../components';
 
 const {width, height} = Dimensions.get('screen');
 
 const Home = () => {
   const [moviesImg, setMoviesImg] = React.useState([]);
-  const [movie, setMovie] = React.useState('');
+  const [popularMovies, setPopularMovies] = React.useState([]);
   const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
@@ -24,8 +32,9 @@ const Home = () => {
       })
       .catch();
     getPopularMovies()
-      .then(movie => {
-        setMovie(movie[0]);
+      .then(movies => {
+        setPopularMovies(movies);
+        // console.log('Logging popular movies', movies);
         setError(false);
       })
       .catch(err => {
@@ -33,22 +42,37 @@ const Home = () => {
       });
   }, []);
   return (
-    <SafeAreaView style={styles?.sliderContainer}>
-      <SliderBox
-        images={moviesImg}
-        ImageComponent={FastImage}
-        sliderBoxHeight={height / 1.5}
-        autoplay={true}
-        circleLoop={true}
-        dotStyle={styles?.dotStyle}
-      />
+    <SafeAreaView style={styles?.container}>
+      <View style={styles?.sliderContainer}>
+        <SliderBox
+          images={moviesImg}
+          ImageComponent={FastImage}
+          sliderBoxHeight={height / 1.5}
+          autoplay={true}
+          circleLoop={true}
+          dotStyle={styles?.dotStyle}
+        />
+      </View>
+      <View style={styles?.carouselContainer}>
+        <List title="Testing title" content={popularMovies} />
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   sliderContainer: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  carouselContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   dotStyle: {
     height: 0,
