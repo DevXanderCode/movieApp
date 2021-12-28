@@ -21,7 +21,7 @@ import {List, Error} from '../components';
 
 const {width, height} = Dimensions.get('screen');
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [moviesImg, setMoviesImg] = React.useState([]);
   const [popularMovies, setPopularMovies] = React.useState([]);
   const [popularTv, setPopularTv] = React.useState([]);
@@ -96,19 +96,31 @@ const Home = () => {
             {/* Popular movies Carousel */}
             {popularMovies.length > 0 && (
               <View style={styles?.carouselContainer}>
-                <List title="Popular Movies" content={popularMovies} />
+                <List
+                  title="Popular Movies"
+                  content={popularMovies}
+                  navigation={navigation}
+                />
               </View>
             )}
             {/* Popular Tv Shows Carousel */}
             {popularTv.length > 0 && (
               <View style={styles?.carouselContainer}>
-                <List title="Popular Tv Shows" content={popularTv} />
+                <List
+                  title="Popular Tv Shows"
+                  content={popularTv}
+                  navigation={navigation}
+                />
               </View>
             )}
             {/* Family Shows Carousel */}
             {familyMovies.length > 0 && (
               <View style={styles?.carouselContainer}>
-                <List title="Popular Family Movies" content={familyMovies} />
+                <List
+                  title="Popular Family Movies"
+                  content={familyMovies}
+                  navigation={navigation}
+                />
               </View>
             )}
             {/* Documentary Movies */}
@@ -117,6 +129,7 @@ const Home = () => {
                 <List
                   title="Popular Documentary Movies"
                   content={documentaryMovies}
+                  navigation={navigation}
                 />
               </View>
             )}

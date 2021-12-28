@@ -11,9 +11,13 @@ const propTypes = {
 
 class Card extends React.PureComponent {
   render() {
-    const {item} = this?.props;
+    const {item, navigation} = this?.props;
     return (
-      <TouchableOpacity onPress={() => {}} style={styles?.container}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Details');
+        }}
+        style={styles?.container}>
         <FastImage
           source={
             item?.poster_path
