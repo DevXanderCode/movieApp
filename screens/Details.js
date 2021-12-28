@@ -32,7 +32,6 @@ const Detail = ({route, navigation}) => {
     getMovie(movieId)
       .then(movieData => {
         setMovieDetail(movieData);
-        console.log('logging genre==> ', movieData?.title, movieData?.genres);
         setShowError(false);
       })
       .catch(err => {
@@ -71,7 +70,20 @@ const Detail = ({route, navigation}) => {
               </View>
             )}
 
-            <StarRating maxStars={5} rating={movieDetail?.vote_average} />
+            <StarRating
+              maxStars={5}
+              rating={movieDetail?.vote_average / 2}
+              starSize={30}
+              disabled={true}
+              fullStarColor="gold"
+            />
+
+            <Text style={styles?.overview}>{movieDetail?.overview}</Text>
+
+            <Text
+              style={
+                styles?.release
+              }>{`Release Date: ${movieDetail?.release_date}`}</Text>
           </View>
         </ScrollView>
       )}
@@ -94,15 +106,23 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginVertical: 10,
+    paddingHorizontal: 15,
   },
   genreContainer: {
-    marginTop: 20,
+    marginVertical: 20,
     flexDirection: 'row',
     alignContent: 'center',
+    paddingHorizontal: 15,
   },
   genre: {
     fontWeight: 'bold',
     marginRight: 10,
+  },
+  overview: {
+    padding: 15,
+  },
+  release: {
+    fontWeight: 'bold',
   },
 });
 
