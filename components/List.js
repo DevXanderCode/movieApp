@@ -6,6 +6,7 @@ import Card from './Card';
 const propTypes = {
   title: PropTypes?.string,
   content: PropTypes?.array,
+  navigation: PropTypes?.object,
 };
 
 class List extends React.PureComponent {

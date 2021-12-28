@@ -7,6 +7,7 @@ const placeholderImg = require('../assets/images/image-placeholder.png');
 
 const propTypes = {
   item: PropTypes?.object,
+  navigation: PropTypes?.object,
 };
 
 class Card extends React.PureComponent {
@@ -15,7 +16,9 @@ class Card extends React.PureComponent {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('Details', {movieDetail: item});
+          navigation.navigate('Details', {
+            movieId: item?.id,
+          });
         }}
         style={styles?.container}>
         <FastImage
