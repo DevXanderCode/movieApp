@@ -7,6 +7,8 @@ import {
   ActivityIndicator,
   ScrollView,
   Dimensions,
+  Modal,
+  Pressable,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
@@ -29,6 +31,11 @@ const Detail = ({route, navigation}) => {
   const [loaded, setLoaded] = useState(false);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleVideo = () => {
+    setModalVisible(!modalVisible);
+  };
 
   useEffect(() => {
     getMovie(movieId)
@@ -47,50 +54,57 @@ const Detail = ({route, navigation}) => {
   return (
     <SafeAreaView style={styles?.container}>
       {loaded && (
-        <ScrollView>
-          <FastImage
-            source={
-              movieDetail?.poster_path
-                ? {
-                    uri: `https://image.tmdb.org/t/p/w500${movieDetail?.poster_path}`,
-                  }
-                : placeholderImg
-            }
-            style={styles?.imgStyle}
-            resiezeMode="cover"
-            placeholder={placeholderImg}
-          />
-          <View style={styles?.container}>
-            <View style={styles?.playButton}>
-              <PlayButton />
-            </View>
-            <Text style={styles?.movieTitle}>{movieDetail?.title}</Text>
-            {movieDetail?.genres && (
-              <View style={styles?.genreContainer}>
-                {movieDetail?.genres?.map(genre => (
-                  <Text key={genre?.id} style={styles?.genre}>
-                    {genre?.name}
-                  </Text>
-                ))}
-              </View>
-            )}
-
-            <StarRating
-              maxStars={5}
-              rating={movieDetail?.vote_average / 2}
-              starSize={30}
-              disabled={true}
-              fullStarColor="gold"
+        <View>
+          <ScrollView>
+            <FastImage
+              source={
+                movieDetail?.poster_path
+                  ? {
+                      uri: `https://image.tmdb.org/t/p/w500${movieDetail?.poster_path}`,
+                    }
+                  : placeholderImg
+              }
+              style={styles?.imgStyle}
+              resiezeMode="cover"
+              placeholder={placeholderImg}
             />
+            <View style={styles?.container}>
+              <View style={styles?.playButton}>
+                <PlayButton handlePress={() => toggleVideo()} />
+              </View>
+              <Text style={styles?.movieTitle}>{movieDetail?.title}</Text>
+              {movieDetail?.genres && (
+                <View style={styles?.genreContainer}>
+                  {movieDetail?.genres?.map(genre => (
+                    <Text key={genre?.id} style={styles?.genre}>
+                      {genre?.name}
+                    </Text>
+                  ))}
+                </View>
+              )}
+              <StarRating
+                maxStars={5}
+                rating={movieDetail?.vote_average / 2}
+                starSize={30}
+                disabled={true}
+                fullStarColor="gold"
+              />
+              <Text style={styles?.overview}>{movieDetail?.overview}</Text>
+              <Text style={styles?.release}>{`Release Date: ${dateFormat(
+                movieDetail?.release_date,
+                'mmmm dS, yyyy',
+              )}`}</Text>
+            </View>
+          </ScrollView>
 
-            <Text style={styles?.overview}>{movieDetail?.overview}</Text>
-
-            <Text style={styles?.release}>{`Release Date: ${dateFormat(
-              movieDetail?.release_date,
-              'mmmm dS, yyyy',
-            )}`}</Text>
-          </View>
-        </ScrollView>
+          <Modal animationType="slide" visible={modalVisible}>
+            <View style={styles?.videoModal}>
+              <Pressable onPress={() => toggleVideo()}>
+                <Text>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </Modal>
+        </View>
       )}
       {!loaded && <ActivityIndicator size="large" />}
     </SafeAreaView>
@@ -133,6 +147,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -30,
     right: 20,
+  },
+  videoModal: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

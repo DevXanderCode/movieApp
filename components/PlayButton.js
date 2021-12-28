@@ -1,14 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {StyleSheet, Pressable} from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const propTypes = {};
+const propTypes = {
+  handlePress: PropTypes?.func,
+};
 
 class PlayButton extends React.PureComponent {
   render() {
+    const {handlePress} = this?.props;
     return (
-      <Pressable onPress={() => {}} style={styles?.button}>
+      <Pressable onPress={handlePress} style={styles?.button}>
         <Icon name="caret-forward-outline" size={30} color="white" />
       </Pressable>
     );
