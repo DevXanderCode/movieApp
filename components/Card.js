@@ -15,7 +15,7 @@ class Card extends React.PureComponent {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('Details');
+          navigation.navigate('Details', {movieDetail: item});
         }}
         style={styles?.container}>
         <FastImage

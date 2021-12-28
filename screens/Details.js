@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 const propTypes = {};
 
-const Detail = () => {
+const Detail = ({route, navigation}) => {
+  const {movieDetail} = route?.params;
   return (
     <SafeAreaView style={styles?.container}>
-      <Text>Details screen</Text>
+      <Text>{movieDetail?.title || movieDetail?.original_name}</Text>
     </SafeAreaView>
   );
 };
