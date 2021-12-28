@@ -69,6 +69,7 @@ const Home = () => {
       .catch(err => {
         setShowError(true);
         setError(err);
+        console.error('Got this error ==>', err);
       })
       .finally(() => {
         setLoaded(true);
