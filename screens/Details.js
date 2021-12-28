@@ -11,6 +11,7 @@ import {
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
 import StarRating from 'react-native-star-rating';
+import dateFormat, {masks} from 'dateformat';
 import {getMovie} from '../services/services';
 
 const placeholderImg = require('../assets/images/image-placeholder.png');
@@ -80,10 +81,10 @@ const Detail = ({route, navigation}) => {
 
             <Text style={styles?.overview}>{movieDetail?.overview}</Text>
 
-            <Text
-              style={
-                styles?.release
-              }>{`Release Date: ${movieDetail?.release_date}`}</Text>
+            <Text style={styles?.release}>{`Release Date: ${dateFormat(
+              movieDetail?.release_date,
+              'mmmm dS, yyyy',
+            )}`}</Text>
           </View>
         </ScrollView>
       )}

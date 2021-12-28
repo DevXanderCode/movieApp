@@ -13,6 +13,7 @@
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "axios": "^0.24.0",
+    "dateformat": "^5.0.2",
     "react": "17.0.2",
     "react-native": "0.66.3",
     "react-native-fast-image": "^8.5.11",
