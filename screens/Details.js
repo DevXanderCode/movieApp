@@ -13,6 +13,7 @@ import FastImage from 'react-native-fast-image';
 import StarRating from 'react-native-star-rating';
 import dateFormat, {masks} from 'dateformat';
 import {getMovie} from '../services/services';
+import {PlayButton} from '../components';
 
 const placeholderImg = require('../assets/images/image-placeholder.png');
 const {width, height} = Dimensions.get('screen');
@@ -60,6 +61,9 @@ const Detail = ({route, navigation}) => {
             placeholder={placeholderImg}
           />
           <View style={styles?.container}>
+            <View>
+              <PlayButton />
+            </View>
             <Text style={styles?.movieTitle}>{movieDetail?.title}</Text>
             {movieDetail?.genres && (
               <View style={styles?.genreContainer}>
