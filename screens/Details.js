@@ -61,7 +61,7 @@ const Detail = ({route, navigation}) => {
             placeholder={placeholderImg}
           />
           <View style={styles?.container}>
-            <View>
+            <View style={styles?.playButton}>
               <PlayButton />
             </View>
             <Text style={styles?.movieTitle}>{movieDetail?.title}</Text>
@@ -128,6 +128,11 @@ const styles = StyleSheet.create({
   },
   release: {
     fontWeight: 'bold',
+  },
+  playButton: {
+    position: 'absolute',
+    top: -30,
+    right: 20,
   },
 });
 
