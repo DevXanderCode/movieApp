@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
+import StarRating from 'react-native-star-rating';
 import {getMovie} from '../services/services';
 
 const placeholderImg = require('../assets/images/image-placeholder.png');
@@ -31,6 +32,7 @@ const Detail = ({route, navigation}) => {
     getMovie(movieId)
       .then(movieData => {
         setMovieDetail(movieData);
+        console.log('logging genre==> ', movieData?.title, movieData?.genres);
         setShowError(false);
       })
       .catch(err => {
@@ -57,7 +59,20 @@ const Detail = ({route, navigation}) => {
             resiezeMode="cover"
             placeholder={placeholderImg}
           />
-          {/* <Text>{movieDetail?.title}</Text> */}
+          <View style={styles?.container}>
+            <Text style={styles?.movieTitle}>{movieDetail?.title}</Text>
+            {movieDetail?.genres && (
+              <View style={styles?.genreContainer}>
+                {movieDetail?.genres?.map(genre => (
+                  <Text key={genre?.id} style={styles?.genre}>
+                    {genre?.name}
+                  </Text>
+                ))}
+              </View>
+            )}
+
+            <StarRating maxStars={5} rating={movieDetail?.vote_average} />
+          </View>
         </ScrollView>
       )}
       {!loaded && <ActivityIndicator size="large" />}
@@ -74,6 +89,20 @@ const styles = StyleSheet.create({
   imgStyle: {
     width,
     height: height / 2.5,
+  },
+  movieTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
+  genreContainer: {
+    marginTop: 20,
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  genre: {
+    fontWeight: 'bold',
+    marginRight: 10,
   },
 });
 
