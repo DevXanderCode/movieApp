@@ -3,3 +3,4 @@ export {default as Card} from './Card';
 export {default as Error} from './Error';
 export {default as PlayButton} from './PlayButton';
 export {default as Video} from './Video';
+export {default as Navbar} from './Navbar';

@@ -9,8 +9,16 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Details" component={Detail} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: true, headerTransparent: true}}
+        />
+        <Stack.Screen
+          name="Details"
+          component={Detail}
+          options={{headerShown: true, headerTransparent: true}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
