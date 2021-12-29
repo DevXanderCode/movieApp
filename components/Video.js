@@ -15,6 +15,7 @@ const Video = ({navigation, toggleVideo}) => {
       onBack={() => toggleVideo()}
       onEnd={() => toggleVideo()}
       tapAnywhereToPause={true}
+      fullScreenOrientation="all"
     />
   );
 };
