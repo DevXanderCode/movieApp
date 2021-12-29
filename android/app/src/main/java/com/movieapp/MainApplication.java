@@ -10,9 +10,14 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.List;
+import com.brentvatne.react.ReactVideoPackage;
+import com.facebook.react.shell.MainReactPackage;
 
-public class MainApplication extends Application implements ReactApplication {
+
+
+public class MainApplication<detailsrride> extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -47,6 +52,13 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
+
+  protected List<ReactPackage> getPackages() {
+    return Arrays.asList(
+            new MainReactPackage(),
+            new ReactVideoPackage()
+    );
+}
 
   /**
    * Loads Flipper in React Native templates. Call this in the onCreate method with something like

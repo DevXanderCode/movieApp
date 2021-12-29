@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
 import StarRating from 'react-native-star-rating';
 import dateFormat, {masks} from 'dateformat';
+import VideoPlayer from 'react-native-video-controls';
 import {getMovie} from '../services/services';
 import {PlayButton} from '../components';
 
@@ -99,9 +100,14 @@ const Detail = ({route, navigation}) => {
 
           <Modal animationType="slide" visible={modalVisible}>
             <View style={styles?.videoModal}>
-              <Pressable onPress={() => toggleVideo()}>
+              {/* <Pressable onPress={() => toggleVideo()}>
                 <Text>Hide Modal</Text>
-              </Pressable>
+              </Pressable> */}
+              <VideoPlayer
+                source={{uri: 'https://vjs.zencdn.net/v/oceans.mp4'}}
+                navigator={navigation}
+                onBack={() => toggleVideo()}
+              />
             </View>
           </Modal>
         </View>
