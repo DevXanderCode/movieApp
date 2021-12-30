@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {
   View,
   Text,
@@ -8,12 +8,13 @@ import {
   ScrollView,
   Dimensions,
   Modal,
-  Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
 import StarRating from 'react-native-star-rating';
 import dateFormat, {masks} from 'dateformat';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {getMovie} from '../services/services';
 import {PlayButton, Video} from '../components';
 
@@ -51,6 +52,16 @@ const Detail = ({route, navigation}) => {
         setLoaded(true);
       });
   }, [movieId]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation?.goBack()}>
+          <Icon name="chevron-back" size={40} color={'#fff'} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
   return (
     <SafeAreaView style={styles?.container}>
       {loaded && (
