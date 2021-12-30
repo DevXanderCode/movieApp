@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Text,
+  TouchableOpacity,
   View,
   SafeAreaView,
   StyleSheet,
@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SliderBox} from 'react-native-image-slider-box';
+import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   getPopularMovies,
   getUpcommingMovies,
@@ -18,6 +20,10 @@ import {
   getDocumentaryMovies,
 } from '../services/services';
 import {List, Error} from '../components';
+
+const propTypes = {
+  navigation: PropTypes?.object?.isRequired,
+};
 
 const {width, height} = Dimensions.get('screen');
 
@@ -75,6 +81,24 @@ const Home = ({navigation}) => {
         setLoaded(true);
       });
   }, []);
+
+  React.useLayoutEffect(() => {
+    navigation?.setOptions({
+      headerLeft: () => (
+        <FastImage
+          source={require('../assets/images/movies.png')}
+          style={styles?.logo}
+        />
+      ),
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Search')}
+          style={styles?.searchIcon}>
+          <Icon name="search-outline" size={30} color={'#fff'} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
   return (
     <SafeAreaView style={styles?.container}>
       {loaded ? (
@@ -162,6 +186,18 @@ const styles = StyleSheet.create({
     height: 0,
     width: 0,
   },
+  logo: {
+    width: 40,
+    height: 40,
+    paddingVertical: 10,
+    paddingLeft: 10,
+  },
+  searchIcon: {
+    paddingVertical: 10,
+    paddingRight: 10,
+  },
 });
+
+Home.propTypes = propTypes;
 
 export default Home;

@@ -16,6 +16,7 @@ const App = () => {
             headerShown: true,
             headerTransparent: true,
             headerShadowVisible: false,
+            title: '',
           }}
         />
         <Stack.Screen

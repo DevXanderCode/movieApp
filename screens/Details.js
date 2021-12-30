@@ -16,7 +16,7 @@ import StarRating from 'react-native-star-rating';
 import dateFormat, {masks} from 'dateformat';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getMovie} from '../services/services';
-import {PlayButton, Video} from '../components';
+import {PlayButton, Video, Navbar} from '../components';
 
 const placeholderImg = require('../assets/images/image-placeholder.png');
 const {width, height} = Dimensions.get('screen');
