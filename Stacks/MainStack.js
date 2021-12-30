@@ -1,6 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Home, Detail} from '../screens';
+import {Home, Detail, Search} from '../screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +21,18 @@ class MainStack extends React.PureComponent {
         <Stack.Screen
           name="Details"
           component={Detail}
+          options={{
+            headerShown: true,
+            headerTransparent: true,
+            headerShadowVisible: false,
+            tabBarVisible: false,
+            title: '',
+            headerTintColor: '#fff',
+          }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={Search}
           options={{
             headerShown: true,
             headerTransparent: true,
