@@ -45,7 +45,7 @@ const Search = ({navigation}) => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={() => navigation?.goBack()}>
-          <Icon name="chevron-back" size={40} color={Colors?.white} />
+          <Icon name="chevron-back" size={40} color={Colors?.lightGray} />
         </TouchableOpacity>
       ),
     });

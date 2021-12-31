@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
   listTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    paddingBottom: 20,
+    padding: 10,
+    paddingBottom: 15,
   },
 });
 
