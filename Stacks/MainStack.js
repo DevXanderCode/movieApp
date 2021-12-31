@@ -1,6 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Home, Detail, Search} from '../screens';
+import Colors from '../themes/Colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +28,7 @@ class MainStack extends React.PureComponent {
             headerShadowVisible: false,
             tabBarVisible: false,
             title: '',
-            headerTintColor: '#fff',
+            headerTintColor: Colors?.white,
           }}
         />
         <Stack.Screen
@@ -39,7 +40,7 @@ class MainStack extends React.PureComponent {
             headerShadowVisible: false,
             tabBarVisible: false,
             title: '',
-            headerTintColor: '#fff',
+            headerTintColor: Colors?.white,
           }}
         />
       </Stack.Navigator>

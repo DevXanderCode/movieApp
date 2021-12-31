@@ -20,6 +20,7 @@ import {
   getDocumentaryMovies,
 } from '../services/services';
 import {List, Error} from '../components';
+import Colors from '../themes/Colors';
 
 const propTypes = {
   navigation: PropTypes?.object?.isRequired,
@@ -94,7 +95,7 @@ const Home = ({navigation}) => {
         <TouchableOpacity
           onPress={() => navigation.navigate('Search')}
           style={styles?.searchIcon}>
-          <Icon name="search-outline" size={30} color={'#fff'} />
+          <Icon name="search-outline" size={30} color={Colors?.white} />
         </TouchableOpacity>
       ),
     });

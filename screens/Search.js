@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import {searchMovieTv} from '../services/services';
 import {Card} from '../components';
+import Colors from '../themes/Colors';
 
 const propTypes = {
   navigation: PropTypes?.object?.isRequired,
@@ -44,7 +45,7 @@ const Search = ({navigation}) => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={() => navigation?.goBack()}>
-          <Icon name="chevron-back" size={40} color={'#fff'} />
+          <Icon name="chevron-back" size={40} color={Colors?.white} />
         </TouchableOpacity>
       ),
     });

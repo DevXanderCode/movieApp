@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Pressable} from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Colors from '../themes/Colors';
 
 const propTypes = {
   handlePress: PropTypes?.func,
@@ -12,7 +13,7 @@ class PlayButton extends React.PureComponent {
     const {handlePress} = this?.props;
     return (
       <Pressable onPress={handlePress} style={styles?.button}>
-        <Icon name="caret-forward-outline" size={30} color="white" />
+        <Icon name="caret-forward-outline" size={30} color={Colors?.white} />
       </Pressable>
     );
   }
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: 50,
     padding: 10,
-    backgroundColor: '#4481fc',
+    backgroundColor: Colors?.primary,
   },
 });
 

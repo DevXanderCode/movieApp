@@ -17,6 +17,7 @@ import dateFormat, {masks} from 'dateformat';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getMovie} from '../services/services';
 import {PlayButton, Video, Navbar} from '../components';
+import Colors from '../themes/Colors';
 
 const placeholderImg = require('../assets/images/image-placeholder.png');
 const {width, height} = Dimensions.get('screen');
@@ -57,7 +58,7 @@ const Detail = ({route, navigation}) => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={() => navigation?.goBack()}>
-          <Icon name="chevron-back" size={40} color={'#fff'} />
+          <Icon name="chevron-back" size={40} color={Colors?.white} />
         </TouchableOpacity>
       ),
     });

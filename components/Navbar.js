@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
+import Colors from '../themes/Colors';
 
 const propTypes = {
   navigation: PropTypes?.object?.isRequired,
@@ -20,7 +21,7 @@ class Navbar extends React.PureComponent {
       <SafeAreaView style={styles?.container}>
         <View style={styles?.container}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="chevron-back" size={40} color={'#fff'} />
+            <Icon name="chevron-back" size={40} color={Colors?.white} />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
