@@ -51,19 +51,21 @@ const Search = ({navigation}) => {
     });
   }, [navigation]);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles?.screen}>
       <View style={styles?.container}>
-        <View style={styles?.form}>
-          <TextInput
-            style={styles?.input}
-            value={text}
-            onChangeText={onChangeText}
-            placeholder="Search Movie or TV Show"
-          />
+        <View style={styles?.formContainer}>
+          <View style={styles?.form}>
+            <TextInput
+              style={styles?.input}
+              value={text}
+              onChangeText={onChangeText}
+              placeholder="Search Movie or TV Show"
+            />
+          </View>
+          <TouchableOpacity onPress={() => text?.length > 0 && onSubmit(text)}>
+            <Icon name="search-outline" size={30} />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => text?.length > 0 && onSubmit(text)}>
-          <Icon name="search-outline" size={30} />
-        </TouchableOpacity>
       </View>
       <View style={styles?.searchItem}>
         {/* search results */}
@@ -109,14 +111,26 @@ const Search = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: Colors?.white,
+  },
   container: {
     padding: 10,
     paddingTop: 50,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: Colors?.white,
+  },
+  formContainer: {
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    borderRadius: 15,
+    padding: 5,
+    alignItems: 'center',
   },
   input: {
-    borderWidth: 0.5,
+    borderWidth: 0,
     height: 40,
     padding: 8,
     borderRadius: 15,

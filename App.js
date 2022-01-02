@@ -25,6 +25,7 @@ const App = () => {
       <Tab.Navigator
         screenOptions={({route}) => ({
           headerShown: false,
+          tabBarShowLabel: false,
           tabBarIcon: ({color}) => getIcons(route, color),
         })}>
         <Tab.Screen name="online" component={MainStack} />

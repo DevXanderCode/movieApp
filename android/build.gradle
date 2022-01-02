@@ -23,11 +23,7 @@ allprojects {
     repositories {
         mavenCentral()
         mavenLocal()
-        jcenter(){
-            content {
-                includeModule("com.yqritc", "android-scalablevideoview")
-            }
-        }
+        jcenter()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")

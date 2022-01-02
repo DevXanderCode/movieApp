@@ -2,12 +2,13 @@ import React from 'react';
 import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
+import Colors from '../themes/Colors';
 
 const placeholderImg = require('../assets/images/image-placeholder.png');
 
 const propTypes = {
   item: PropTypes?.object,
-  navigation: PropTypes?.object,
+  navigation: PropTypes?.object?.isRequired,
 };
 
 class Card extends React.PureComponent {
@@ -46,11 +47,12 @@ const styles = StyleSheet.create({
     height: 200,
     alignItems: 'center',
     marginBottom: 10,
+    backgroundColor: Colors?.white,
   },
   imgStyle: {
     width: 120,
     height: 200,
-    borderRadius: 20,
+    borderRadius: 10,
   },
   movieName: {
     position: 'absolute',
