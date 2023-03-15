@@ -130,6 +130,20 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+
+     packagingOptions {
+      pickFirst 'lib/x86/libc++_shared.so'
+      pickFirst 'lib/x86_64/libc++_shared.so'
+      pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+      pickFirst 'lib/arm64-v8a/libc++_shared.so'
+  }
+  rootProject.ext.ffmpegKitPackage = "video"
+
+  sourceSets.main {
+    jniLibs.srcDir 'libs'
+    jni.srcDirs = [] //disable automatic ndk-build call
+}
+
     defaultConfig {
         applicationId "com.movieapp"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -141,7 +155,7 @@ android {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
+            universalApk true  // If true, also generate a universal APK
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
